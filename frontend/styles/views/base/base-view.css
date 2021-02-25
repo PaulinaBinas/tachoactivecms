@@ -1,0 +1,20 @@
+vaadin-vertical-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#loginBtn {
+    border-radius: 5px;
+    background-color: hsl(22, 100%, 42%);
+    padding: 10px 15px;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    margin-top: 50px;
+}
+
+#loginBtn:hover {
+    background-color: hsl(22, 80%, 47%);
+}
