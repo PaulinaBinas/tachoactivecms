@@ -22,10 +22,16 @@ public class AndroidController {
     }
 
     @PostMapping(consumes = "application/octet-stream")
-    public HttpStatus addNewDDDFile(@RequestBody byte[] file) {
+    public HttpStatus addNewDDDFile(@RequestHeader("X-Secret") String code, @RequestBody byte[] file) {
         try {
-            emailService.sendMessageWithAttachment(emailService.getEmail(), "Nowy plik DDD", "W załączniku znajdziesz nowy plik z aplikacji Android.", file);
-            return HttpStatus.OK;
+            UserTo user = userService.getUserByCode(code);
+            if(user != null) {
+                emailService.sendMessageWithAttachment(emailService.getEmail(), "Nowy plik DDD od " + user.getName() +
+                        " " + user.getSurname() + " " + user.getCompanyName(), "W załączniku znajdziesz nowy plik z aplikacji Android.", file);
+                return HttpStatus.OK;
+            } else {
+                return HttpStatus.FORBIDDEN;
+            }
         } catch (Exception e) {
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
@@ -55,6 +61,16 @@ public class AndroidController {
         UserTo user = userService.getUserByCode(code);
         if(user != null) {
             return user.getDaysReminder();
+        } else {
+            return null;
+        }
+    }
+
+    @GetMapping("/name")
+    public String getNameAndSurname(@RequestHeader("X-Secret") String code) {
+        UserTo user = userService.getUserByCode(code);
+        if(user != null) {
+            return user.getName() + " " + user.getSurname();
         } else {
             return null;
         }

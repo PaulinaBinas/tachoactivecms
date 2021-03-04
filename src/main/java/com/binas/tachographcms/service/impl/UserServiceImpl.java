@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.vaadin.artur.helpers.CrudService;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -93,5 +94,11 @@ public class UserServiceImpl extends CrudService<User, Integer> implements UserS
     @Override
     protected JpaRepository<User, Integer> getRepository() {
         return this.userRepository;
+    }
+
+    @Transactional
+    @Override
+    public void removeUserById(Integer id) {
+        this.userRepository.deleteUserById(id);
     }
 }

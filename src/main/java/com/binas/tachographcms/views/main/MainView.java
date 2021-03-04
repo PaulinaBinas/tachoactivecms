@@ -4,6 +4,7 @@ import com.binas.tachographcms.views.changepassword.ChangePasswordView;
 import com.binas.tachographcms.views.editdata.EditDataView;
 import com.binas.tachographcms.views.generatecode.GenerateCodeView;
 import com.binas.tachographcms.views.generatemail.GenerateMailView;
+import com.binas.tachographcms.views.removeuser.RemoveUserView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -56,7 +57,7 @@ public class MainView extends AppLayout {
         layout.add(new DrawerToggle());
         viewTitle = new H1();
         layout.add(viewTitle);
-        Anchor logout = new Anchor("logout", "Wyloguj się");
+        Anchor logout = new Anchor("/tacho/logout", "Wyloguj się");
         logout.setId("logout");
         layout.add(logout);
         return layout;
@@ -73,7 +74,7 @@ public class MainView extends AppLayout {
         logoLayout.setId("logo");
         logoLayout.setAlignItems(FlexComponent.Alignment.CENTER);
         logoLayout.add(new Image("images/logo.png", "Tacho logo"));
-        logoLayout.add(new H1("Tacho"));
+        logoLayout.add(new H1("TachoActive"));
         layout.add(logoLayout, menu);
         return layout;
     }
@@ -91,7 +92,8 @@ public class MainView extends AppLayout {
         return new Tab[]{createTab("Edytuj dane", EditDataView.class),
                 createTab("Generuj kody", GenerateCodeView.class),
                 createTab("Edytuj email", GenerateMailView.class),
-                createTab("Zmień hasło", ChangePasswordView.class)};
+                createTab("Zmień hasło", ChangePasswordView.class),
+                createTab("Usuń użytkowników", RemoveUserView.class)};
     }
 
     private static Tab createTab(String text, Class<? extends Component> navigationTarget) {

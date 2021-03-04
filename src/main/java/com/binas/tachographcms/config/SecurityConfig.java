@@ -71,6 +71,10 @@ public class SecurityConfig {
                     .loginProcessingUrl("/tacho/login")
                     .defaultSuccessUrl("/tacho/editUsers")
                     .and()
+                    .logout()
+                    .logoutUrl("/tacho/logout")
+                    .logoutSuccessUrl("/")
+                    .and()
                     .csrf()
                     .disable();
 //                    .addFilterBefore(new SecretTokenFilter(authManager, secretContextStrategy), BasicAuthenticationFilter.class)
@@ -104,6 +108,8 @@ public class SecurityConfig {
         protected void configure(HttpSecurity http) throws Exception {
             http.antMatcher("/android/**")
                     .authorizeRequests()
+                    .antMatchers("/android/user")
+                    .permitAll()
                     .anyRequest()
                     .authenticated()
                     .and()

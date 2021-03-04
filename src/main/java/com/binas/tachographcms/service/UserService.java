@@ -18,4 +18,6 @@ public interface UserService {
     void setUserReminder(Integer days, Integer id);
 
     UserTo getUserByCode(String code);
+
+    void removeUserById(Integer id);
 }

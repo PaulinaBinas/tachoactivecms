@@ -14,6 +14,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     Optional<User> findDistinctByCode(String code);
 
+    void deleteUserById(Integer id);
+
     @Override
     List<User> findAll();
 
