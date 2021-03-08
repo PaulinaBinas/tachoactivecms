@@ -101,12 +101,16 @@ public class EditDataView extends PolymerTemplate<TemplateModel> {
                 if (this.user == null) {
                     this.user = new User();
                 }
-                binder.writeBean(this.user);
+                if(userService.getUserByCode(this.code.getValue()) == null || this.user.getCode() == this.code.getValue()) {
+                    binder.writeBean(this.user);
 
-                userService.update(this.user);
-                clearForm();
-                refreshGrid();
-                Notification.show("Zapisano dane użytkownika.");
+                    userService.update(this.user);
+                    clearForm();
+                    refreshGrid();
+                    Notification.show("Zapisano dane użytkownika.");
+                } else {
+                    Notification.show("Nie zapisano danych, ponieważ podany kod występuje już w bazie. Zmień go na unikalny.");
+                }
             } catch (ValidationException validationException) {
                 Notification.show("Wystąpił błąd podczas zapisywania danych użytkownika.");
             }

@@ -27,7 +27,7 @@ public class AndroidController {
             UserTo user = userService.getUserByCode(code);
             if(user != null) {
                 emailService.sendMessageWithAttachment(emailService.getEmail(), "Nowy plik DDD od " + user.getName() +
-                        " " + user.getSurname() + " " + user.getCompanyName(), "W załączniku znajdziesz nowy plik z aplikacji Android.", file);
+                        " " + user.getSurname() + " " + user.getCompanyName(), "W tym mailu znajdziesz nowy plik ddd z aplikacji Android.", file);
                 return HttpStatus.OK;
             } else {
                 return HttpStatus.FORBIDDEN;
