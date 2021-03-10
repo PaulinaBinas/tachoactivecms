@@ -73,13 +73,12 @@ public class SecurityConfig {
                     .and()
                     .logout()
                     .logoutUrl("/tacho/logout")
+                    .deleteCookies("JSESSIONID")
                     .logoutSuccessUrl("/")
                     .and()
+//                    .addFilterBefore(new SecretTokenFilter(authenticationManager, secretContextStrategy), BasicAuthenticationFilter.class)
                     .csrf()
                     .disable();
-//                    .addFilterBefore(new SecretTokenFilter(authManager, secretContextStrategy), BasicAuthenticationFilter.class)
-//                    .csrf()
-//                    .disable();;
         }
     }
 

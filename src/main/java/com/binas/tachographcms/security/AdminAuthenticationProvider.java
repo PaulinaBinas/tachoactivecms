@@ -27,7 +27,7 @@ public class AdminAuthenticationProvider implements AuthenticationProvider {
          if(authentication.getPrincipal() != null && authentication.getCredentials() != null) {
             String username = authentication.getPrincipal().toString();
             String password = authentication.getCredentials().toString();
-            return this.adminRepository.getAdminByUsernameAndAndPassword(username, password).map(admin -> {
+            return this.adminRepository.getAdminById(1L).filter(admin -> admin.getUsername().equals(username) && admin.getPassword().equals(password)).map(admin -> {
                 AbstractAuthenticationToken authResult = new UsernamePasswordAuthenticationToken(username, password, List.of(new SimpleGrantedAuthority("ROLE_ADMIN")));
                 SecurityContextHolder.getContext().setAuthentication(authResult);
                 return authResult;

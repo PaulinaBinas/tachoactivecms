@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.vaadin.artur.helpers.CrudServiceDataProvider;
 
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Route(value = "tacho/editUsers", layout = MainView.class)
 @PageTitle("Edytuj dane")
@@ -101,15 +102,24 @@ public class EditDataView extends PolymerTemplate<TemplateModel> {
                 if (this.user == null) {
                     this.user = new User();
                 }
-                if(userService.getUserByCode(this.code.getValue()) == null || this.user.getCode() == this.code.getValue()) {
-                    binder.writeBean(this.user);
+                AtomicBoolean uniquePhone = new AtomicBoolean(true);
+                userService.getAllUsers().stream().forEach(u -> {
+                    if(u.getPhoneNumber().equals(this.phoneNumber.getValue())) {
+                        uniquePhone.set(false);
+                        Notification.show("Nie zapisano danych, ponieważ podany numer telefonu występuje już w bazie. Zmień go na unikalny.");
+                    }
+                });
+                if(uniquePhone.get()) {
+                    if (userService.getUserByCode(this.code.getValue()) == null || this.user.getCode() == this.code.getValue() || this.code.getValue().isEmpty()) {
+                        binder.writeBean(this.user);
 
-                    userService.update(this.user);
-                    clearForm();
-                    refreshGrid();
-                    Notification.show("Zapisano dane użytkownika.");
-                } else {
-                    Notification.show("Nie zapisano danych, ponieważ podany kod występuje już w bazie. Zmień go na unikalny.");
+                        userService.update(this.user);
+                        clearForm();
+                        refreshGrid();
+                        Notification.show("Zapisano dane użytkownika.");
+                    } else {
+                        Notification.show("Nie zapisano danych, ponieważ podany kod występuje już w bazie. Zmień go na unikalny.");
+                    }
                 }
             } catch (ValidationException validationException) {
                 Notification.show("Wystąpił błąd podczas zapisywania danych użytkownika.");
