@@ -4,7 +4,7 @@ import javax.mail.MessagingException;
 
 public interface EmailService {
 
-    void sendMessageWithAttachment(String to, String subject, String text, byte[] file) throws MessagingException;
+    void sendMessageWithAttachment(String to, String subject, String text, byte[] file, String filename) throws MessagingException;
 
     String getEmail();
 

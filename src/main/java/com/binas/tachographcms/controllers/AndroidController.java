@@ -22,12 +22,12 @@ public class AndroidController {
     }
 
     @PostMapping(consumes = "application/octet-stream")
-    public HttpStatus addNewDDDFile(@RequestHeader("X-Secret") String code, @RequestBody byte[] file) {
+    public HttpStatus addNewDDDFile(@RequestHeader("X-Secret") String code, @RequestHeader("filename") String filename, @RequestBody byte[] file) {
         try {
             UserTo user = userService.getUserByCode(code);
             if(user != null) {
                 emailService.sendMessageWithAttachment(emailService.getEmail(), "Nowy plik DDD od " + user.getName() +
-                        " " + user.getSurname() + " " + user.getCompanyName(), "W tym mailu znajdziesz nowy plik ddd z aplikacji Android.", file);
+                        " " + user.getSurname() + " " + user.getCompanyName(), "W tym mailu znajdziesz nowy plik ddd z aplikacji Android.", file, filename);
                 return HttpStatus.OK;
             } else {
                 return HttpStatus.FORBIDDEN;

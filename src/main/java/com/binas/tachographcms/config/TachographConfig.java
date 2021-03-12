@@ -16,6 +16,7 @@ public class TachographConfig {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
+        mailSender.setDefaultEncoding("UTF-8");
 
         mailSender.setUsername("binaspaulina1@gmail.com");
         mailSender.setPassword("oudmcrmaxkzfhvcu");

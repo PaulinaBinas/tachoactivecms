@@ -26,7 +26,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendMessageWithAttachment(String to, String subject, String text, byte[] file) throws MessagingException {
+    public void sendMessageWithAttachment(String to, String subject, String text, byte[] file, String filename) throws MessagingException {
 
         MimeMessage message = emailSender.createMimeMessage();
 
@@ -37,7 +37,7 @@ public class EmailServiceImpl implements EmailService {
         helper.setSubject(subject);
         helper.setText(text);
 
-        helper.addAttachment("karta_kierowcy.ddd", new ByteArrayResource(file));
+        helper.addAttachment(filename + ".ddd", new ByteArrayResource(file));
 
         emailSender.send(message);
     }
