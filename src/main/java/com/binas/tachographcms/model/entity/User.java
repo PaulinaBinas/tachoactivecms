@@ -34,4 +34,7 @@ public class User {
 
     @Nullable
     private Integer daysReminder;
+
+    @Nullable
+    private String serialNumber;
 }

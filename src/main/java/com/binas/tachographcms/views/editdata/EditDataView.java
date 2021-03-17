@@ -104,7 +104,7 @@ public class EditDataView extends PolymerTemplate<TemplateModel> {
                 }
                 AtomicBoolean uniquePhone = new AtomicBoolean(true);
                 userService.getAllUsers().stream().forEach(u -> {
-                    if(u.getPhoneNumber().equals(this.phoneNumber.getValue())) {
+                    if(u.getPhoneNumber().equals(this.phoneNumber.getValue()) && u.getId() != user.getId().longValue()) {
                         uniquePhone.set(false);
                         Notification.show("Nie zapisano danych, ponieważ podany numer telefonu występuje już w bazie. Zmień go na unikalny.");
                     }

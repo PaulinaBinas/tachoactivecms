@@ -28,14 +28,18 @@ public class SecretTokenFilter extends HttpFilter {
      @Override
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
      throws IOException, ServletException {
-        String secretHeaderValue = request.getHeader("X-Secret");
-        Enumeration<String> headerNames = request.getHeaderNames();
-        if(secretHeaderValue == null) {
-            throw new IllegalArgumentException("X-Secret header is required.");
-        }
-        Authentication secretToken = new SecretToken(Collections.emptyList(), secretHeaderValue, null);
-        Authentication authResult = authenticationManager.authenticate(secretToken);
-        securityContextHolderStrategy.getContext().setAuthentication(authResult);
-        chain.doFilter(request, response);
+         String req = request.getRequestURI().substring(request.getContextPath().length());
+         if (!req.equals("/android/user")) {
+             String secretHeaderValue = request.getHeader("X-Secret");
+             Enumeration<String> headerNames = request.getHeaderNames();
+             if (secretHeaderValue == null) {
+                 throw new IllegalArgumentException("X-Secret header is required.");
+             }
+             Authentication secretToken = new SecretToken(Collections.emptyList(), secretHeaderValue, null);
+             Authentication authResult = authenticationManager.authenticate(secretToken);
+             securityContextHolderStrategy.getContext().setAuthentication(authResult);
+             chain.doFilter(request, response);
+         }
+         chain.doFilter(request, response);
      }
 }

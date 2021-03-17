@@ -48,8 +48,9 @@ public class AndroidController {
     }
 
     @GetMapping("/login")
-    public HttpStatus login(@RequestHeader("X-Secret") String code) {
-        if(userService.getUserByCode(code) != null) {
+    public HttpStatus login(@RequestHeader("X-Secret") String code, @RequestHeader("serialNumber") String serialNumber) {
+        UserTo user = userService.getUserByCode(code);
+        if(user != null && user.getSerialNumber().equals(serialNumber)) {
             return HttpStatus.OK;
         } else {
             return HttpStatus.NOT_FOUND;

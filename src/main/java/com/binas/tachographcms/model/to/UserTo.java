@@ -18,4 +18,6 @@ public class UserTo {
     private String companyName;
 
     private Integer daysReminder;
+
+    private String serialNumber;
 }
