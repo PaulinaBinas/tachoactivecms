@@ -39,7 +39,8 @@ public class SecretTokenFilter extends HttpFilter {
              Authentication authResult = authenticationManager.authenticate(secretToken);
              securityContextHolderStrategy.getContext().setAuthentication(authResult);
              chain.doFilter(request, response);
+         } else {
+             chain.doFilter(request, response);
          }
-         chain.doFilter(request, response);
      }
 }
