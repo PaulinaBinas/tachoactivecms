@@ -45,6 +45,7 @@ public class AndroidController {
         } catch(IllegalArgumentException e) {
             return HttpStatus.CONFLICT;
         } catch (Exception e) {
+	    e.printStackTrace();
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
     }
