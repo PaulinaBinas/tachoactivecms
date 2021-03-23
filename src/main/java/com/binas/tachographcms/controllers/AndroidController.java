@@ -42,6 +42,8 @@ public class AndroidController {
         try {
             this.userService.addUser(user);
             return HttpStatus.OK;
+        } catch(IllegalArgumentException e) {
+            return HttpStatus.CONFLICT;
         } catch (Exception e) {
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }

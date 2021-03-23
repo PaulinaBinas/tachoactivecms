@@ -30,7 +30,7 @@ public class UserServiceImpl extends CrudService<User, Integer> implements UserS
     @Override
     public void addUser(UserTo user) {
         this.userRepository.findAll().stream().forEach(u -> {
-            if(user.getPhoneNumber().equals(user.getPhoneNumber())) {
+            if(user.getPhoneNumber() == null || u.getPhoneNumber().equals(user.getPhoneNumber())) {
                 throw new IllegalArgumentException();
             }
         });
